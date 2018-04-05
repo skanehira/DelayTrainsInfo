@@ -1,0 +1,6 @@
+/vendor/
+!/logs/README.md
+.buildpath
+.project
+.settings
+node_modules/
