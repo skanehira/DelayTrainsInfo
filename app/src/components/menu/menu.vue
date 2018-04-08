@@ -4,15 +4,16 @@
   export default {
     data() {
       return {
-        isCollapse: true,
+        menus: {
+          about : "注意",
+          delayInfo : "遅延情報検索",
+          trainList : "路線一覧"
+        },
       };
     },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
+      toPage(pageName) {
+        this.$router.push("/" + pageName);
       },
     }
   }

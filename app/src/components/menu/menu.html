@@ -1,10 +1,5 @@
 <div id="menu">
-		<el-menu default-active="2" :collapse="isCollapse">
-				<el-submenu index="1">
-					<template slot="title">
-						<i class="el-icon-menu"></i>
-						<span slot="title">Navigator One</span>
-					</template>
-				</el-submenu>
-		</el-menu>
+	<el-row v-for="(value, key) in menus" :key="menus.key">
+		<el-button type="text" class="menu" @click="toPage(key)">{{value}}</el-button>
+	</el-row>
 </div>

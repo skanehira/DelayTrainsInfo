@@ -1,0 +1,79 @@
+/* 8bitフォント読み込み */
+@font-face {
+	font-family: PixelMplus10-Regular;
+	src: url('../font/PixelMplus10-Regular.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: PixelMplus10-Bold;
+    src: url('../font/PixelMplus10-Bold.ttf') format("truetype");
+}
+
+div.logo img {
+    width: 100%;
+}
+
+.el-row {
+    text-align: center;
+}
+
+.menu {
+    font-size: 15px;
+    font-family: PixelMplus10-Regular;
+    color: black;
+}
+
+p {
+    font-family: PixelMplus10-Regular;
+    font-size: 15px;
+}
+
+span {
+    font-family: PixelMplus10-Regular;
+}
+
+.menu:hover{
+    color: cornflowerblue;
+    text-decoration:underline;
+}
+
+body {
+    font-family: PixelMplus10-Regular;
+    font-size: 15px;
+    /* background-color: gainsboro; */
+    background: url('../img/background.gif');
+    /* width: 100%;
+    height: 100%; */
+    /* background-size: cover; */
+}
+
+/* hr.logo {
+    border: 0;
+    border-top: 1px solid cornflowerblue;
+} */
+
+
+/* アニメーション */
+@keyframes moveimg {
+    0% { left: -200px;}
+    /* 20% {left: 0px;}
+    40% {left: 100px} */
+    /* 50% {left: 200px} */
+    100% { left: 500px }
+}
+
+#sample1{
+    width: 50%;
+    height: 50%;
+    animation: moveimg 20s infinite ease;
+    position: relative;
+}
+
+/* 路線一覧で遅延がある場合は赤くする */
+.el-table .warning-row {
+    background: #fad7d7;
+}
+
+[v-cloak] {
+    display: none;
+}
