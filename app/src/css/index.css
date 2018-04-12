@@ -9,8 +9,9 @@
     src: url('../font/PixelMplus10-Bold.ttf') format("truetype");
 }
 
-div.logo img {
-    width: 100%;
+div.logo img{
+    width: 86%;
+    float: left;
 }
 
 .el-row {
@@ -76,4 +77,8 @@ body {
 
 [v-cloak] {
     display: none;
+}
+
+.el-pagination {
+    padding: 11px 0px 0px 0px;
 }

@@ -7,7 +7,7 @@ use Slim\Http\Response;
 $app->get('/', function (Request $request, Response $response, array $args) {
     // Sample log message
     // $this->logger->info("Slim-Skeleton '/' route");
-    
+
     // Render index view
     return $this->renderer->render($response, 'index.html', $args);
 });
@@ -17,7 +17,7 @@ $app->get('/', function (Request $request, Response $response, array $args) {
  * csvファイルから線路データを読み取り返却する
  */
 $app->get('/trainList', function (Request $request, Response $response, array $args) {
-    
+
     $filepath = '../data/line20180330free.csv';
     $stationDataFile = new SplFileObject($filepath);
     $stationDataFile->setFlags(SplFileObject::READ_CSV);
@@ -33,16 +33,19 @@ $app->get('/trainList', function (Request $request, Response $response, array $a
     // 全件検索
     if ($query != "") {
         foreach($stationDataFile as $line) {
-            if (strpos($line[2], $query) !== false) {
+            if (strpos($line[2], $query) !== false && !is_null($line[2])) {
                 $totalCount ++;
                 $data[] = [id => $line[0], name => $line[2] , watching => false];
             }
         }
     } else {
         foreach($stationDataFile as $line) {
-            $totalCount ++;
-            $data[] = [id => $line[0], name => $line[2] , watching => false];
+            if (!is_null($line[2])) {
+                $totalCount ++;
+                $data[] = [id => $line[0], name => $line[2] , watching => false];
+            }
         }
+        $totalCount --;
         array_shift($data);
     }
 

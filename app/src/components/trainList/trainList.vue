@@ -1,18 +1,17 @@
 <template src="./trainList.html"></template>
 
 <script>
+    const DEFAULTPAGESIZE = 5;
     export default {
         data() {
             return {
-                // フィルター処理用に元データを保存
-                originalTrainList: [],
                 trainList: [],
                 form: {
                     saerch: ""
                 },
                 currentPage :1,
                 total: 0,
-                pageSize: [5]
+                pageSize: DEFAULTPAGESIZE
             };
         },
         created() {
@@ -28,11 +27,10 @@
                 this.currentPage = 1;
                 this.getList(this.form.search);
             },
-            async getList(query="", currentPage = 1, pageSize = 5) {
+            async getList(query="", currentPage = 1, pageSize = DEFAULTPAGESIZE) {
                 let offset = (currentPage -1) * pageSize;
                 let limit = pageSize;
 
-                // let newTrainList = [];
                 await this.$axios.get("/trainList?" + "query=" + query + "&offset=" + offset + "&limit=" + limit).then(response => {
                     let watching = this.getWatches();
                     response.data.forEach(function (data, index) {
@@ -43,7 +41,7 @@
                                     response.data[index].watching = true;
                                 }
                             }
-                        }                        
+                        }
                     });
 
                     this.trainList = response.data;
@@ -77,10 +75,11 @@
 
                 this.$message({
                     type: 'success',
-                    message: 'ウォッチリストから除去しました',
+                    message: 'ウォッチリストから削除しました',
                     duration: 2500
                 });
             },
+            // ウォッチリストから取得
             getWatches() {
                 let data = this.$localStorage.get('watching');
                 if  (!data) {
@@ -88,6 +87,7 @@
                 }
                 return JSON.parse(data);
             },
+            // ウォッチリストに追加
             setWatches(target) {
                 this.$localStorage.set('watching', JSON.stringify(target));
             }

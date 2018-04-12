@@ -2,29 +2,31 @@
     <template>
         <!-- 検索-->
         <el-form ref="form" :model="form" label-width="120px" style="margin-bottom: 10px;">
-            <el-input v-model="form.search" style="width: 70%"></el-input>
+            <el-input v-model="form.search" style="width: 80%"></el-input>
             <el-button type="primary" @click="search()">検索</el-button>
         </el-form>
 
         <!-- テーブル -->
         <el-table :data="trainList" stripe style="width: 100%; font-size: 15px;">
-            <el-table-column prop="name" label="路線" width="200"></el-table-column>
-            <el-table-column fixed="right" label="ウォッチ" width="120">
+            <el-table-column prop="name" label="路線" width="300"></el-table-column>
+            <el-table-column fixed="right" label="ウォッチ">
                 <template slot-scope="scope">
                     <el-button v-if="!scope.row.watching" @click="addWatch(scope.row)" type="text" size="small" style="font-size: 15px;">追加</el-button>
-                    <el-button v-else @click="deleteWatch(scope.row)" type="text" size="small" style="font-size: 15px;">除去</el-button>
+                    <el-button v-else @click="deleteWatch(scope.row)" type="text" size="small" style="font-size: 15px;">削除</el-button>
                 </template>
             </el-table-column>
         </el-table>
 
         <!-- ページネーション -->
-        <el-pagination
-            background
-            layout="prev, pager, next"
-            :total="total"
-            :current-page.sync="currentPage"
-            :page-sizes="pageSize"
+        <div class="block">
+            <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="total"
+                :current-page.sync="currentPage"
+                :page-size="pageSize"
             >
-        </el-pagination>
+            </el-pagination>
+        </div>
     </template>
 </div>

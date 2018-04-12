@@ -1,0 +1,13 @@
+<div id="watchList">
+    <template>
+        <!-- テーブル -->
+        <el-table :data="watching" stripe style="width: 100%; font-size: 15px;">
+            <el-table-column prop="name" label="路線"></el-table-column>
+            <el-table-column fixed="right" label="ステータス" align="center">
+                <template slot-scope="scope">
+                    <el-alert :title="status" type="success" show-icon :closable="false"></el-alert>
+                </template>
+            </el-table-column>
+        </el-table>
+    </template>
+</div>
