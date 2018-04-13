@@ -2,14 +2,13 @@
     <br>
     <!-- ロゴ -->
     <div class="logo">
-        <img @click="toPage('top')" src="../../img/logo.png">
-    
-        <el-dropdown @command="toPage" trigger="click" hide-on-click>
-            <img src="../../img/nav_icon.png" width="20px" height="30px">        
+        <img @click="toPage('top')" src="../../img/logo.png" width="100%">
+    </div>
+    <el-dropdown @command="toPage" trigger="click" hide-on-click>
+            <img src="../../img/nav_icon.png" width="70%">
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="(value, key) in menus" :key="menus.key" :command="key">{{value}}</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
-    </div>
     <hr>
 </div>

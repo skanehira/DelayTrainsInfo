@@ -9,7 +9,7 @@
     src: url('../font/PixelMplus10-Bold.ttf') format("truetype");
 }
 
-div.logo img{
+.logo {
     width: 86%;
     float: left;
 }
@@ -81,4 +81,12 @@ body {
 
 .el-pagination {
     padding: 11px 0px 0px 0px;
+}
+
+
+.fixed {
+    position: fixed;
+    right: 0;
+    width:20px;
+    height: 30px;
 }
