@@ -5,6 +5,7 @@
     export default {
         data() {
             return {
+                loading: true,
                 trainList: [],
                 form: {
                     saerch: ""
@@ -45,6 +46,7 @@
                     });
 
                     this.trainList = response.data;
+                    this.loading = false;
                     this.total = parseInt(response.headers["totalcount"], 10);
                 });
             },

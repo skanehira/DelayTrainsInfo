@@ -1,31 +1,25 @@
 <div>
     <template>
         <!-- 検索-->
-        <el-form ref="form" :model="form" label-width="120px" style="margin-bottom: 10px;">
-            <el-input v-model="form.search" style="width: 80%"></el-input>
-            <el-button type="primary" @click="search()">検索</el-button>
-        </el-form>
+        <div style="margin-bottom: 10px;display: flex;width: 100%;">
+            <el-input v-model="form.search" style="flex: 1"></el-input>
+            <el-button style="margin-left: 10px" type="primary" @click="search()">検索</el-button>
+        </div>
 
         <!-- テーブル -->
-        <el-table :data="trainList" stripe style="width: 100%; font-size: 15px;">
+        <el-table :data="trainList" v-loading.fullscreen.lock="loading" stripe style="width: 100%">
             <el-table-column prop="name" label="路線" width="300"></el-table-column>
-            <el-table-column fixed="right" label="ウォッチ">
+            <el-table-column fixed="right" align="center" label="ウォッチ">
                 <template slot-scope="scope">
-                    <el-button v-if="!scope.row.watching" @click="addWatch(scope.row)" type="text" size="small" style="font-size: 15px;">追加</el-button>
-                    <el-button v-else @click="deleteWatch(scope.row)" type="text" size="small" style="font-size: 15px;">削除</el-button>
+                    <el-button v-if="!scope.row.watching" @click="addWatch(scope.row)" type="text" size="small">追加</el-button>
+                    <el-button v-else @click="deleteWatch(scope.row)" type="text" size="small">削除</el-button>
                 </template>
             </el-table-column>
         </el-table>
 
         <!-- ページネーション -->
         <div class="block">
-            <el-pagination
-                background
-                layout="prev, pager, next"
-                :total="total"
-                :current-page.sync="currentPage"
-                :page-size="pageSize"
-            >
+            <el-pagination background layout="prev, pager, next" :total="total" :current-page.sync="currentPage" :page-size="pageSize">
             </el-pagination>
         </div>
     </template>

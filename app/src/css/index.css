@@ -1,58 +1,30 @@
-/* 8bitフォント読み込み */
+/* ドットフォント読み込み */
 @font-face {
 	font-family: PixelMplus10-Regular;
 	src: url('../font/PixelMplus10-Regular.ttf') format("truetype");
 }
-
 @font-face {
     font-family: PixelMplus10-Bold;
     src: url('../font/PixelMplus10-Bold.ttf') format("truetype");
 }
 
-.logo {
-    width: 86%;
-    float: left;
-}
-
-.el-row {
-    text-align: center;
-}
-
-.menu {
-    font-size: 15px;
-    font-family: PixelMplus10-Regular;
-    color: black;
-}
-
-p {
-    font-family: PixelMplus10-Regular;
-    font-size: 15px;
-}
-
-span {
-    font-family: PixelMplus10-Regular;
-}
-
-.menu:hover{
-    color: cornflowerblue;
-    text-decoration:underline;
-}
-
+/* 画面全体適用 */
 body {
     font-family: PixelMplus10-Regular;
-    font-size: 15px;
-    /* background-color: gainsboro; */
+    font-size: 15px !important;
     background: url('../img/background.gif');
-    /* width: 100%;
-    height: 100%; */
-    /* background-size: cover; */
 }
 
-/* hr.logo {
-    border: 0;
-    border-top: 1px solid cornflowerblue;
-} */
+/* el-button text 使用するとフォントが効かないので直接指定 */
+span {
+    font-size: 15px;
+    font-family: PixelMplus10-Regular;
+}
 
+/* el-inputでドットフォントを使用　*/
+.el-input__inner {
+    font-family: PixelMplus10-Regular;
+}
 
 /* アニメーション */
 @keyframes moveimg {
@@ -75,18 +47,22 @@ body {
     background: #fad7d7;
 }
 
+/* テーブルの文字サイズを指定 */
+.el-table .cell {
+    font-size: 15px;
+}
+
+/* {{var}}が表示されないようにする */
 [v-cloak] {
     display: none;
 }
 
+/* ページネーションとテーブルの間隔調整 */
 .el-pagination {
     padding: 11px 0px 0px 0px;
 }
 
-
-.fixed {
-    position: fixed;
-    right: 0;
-    width:20px;
-    height: 30px;
+/* メッセージの表示位置 */
+.el-message--success {
+    top:128px;
 }

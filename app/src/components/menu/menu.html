@@ -1,5 +1,5 @@
 <div id="menu">
-	<el-row v-for="(value, key) in menus" :key="menus.key">
-		<el-button type="text" class="menu" @click="toPage(key)">{{value}}</el-button>
-	</el-row>
+	<div v-for="(value, key) in menus" :key="menus.key" style="text-align: center;">
+		<el-button style="color:black" type="text" @click="toPage(key)">{{value}}</el-button>
+	</div>
 </div>
