@@ -1,3 +1,9 @@
 <div>
-    電車遅延検索画面
+    <template>
+        <!-- 検索-->
+        <div style="margin-bottom: 10px;display: flex;width: 100%;">
+            <el-input v-model="form.search" style="flex: 1"></el-input>
+            <el-button style="margin-left: 10px" type="primary" @click="search()">検索</el-button>
+        </div>
+    </template>
 </div>

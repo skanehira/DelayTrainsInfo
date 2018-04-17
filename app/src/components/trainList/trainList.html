@@ -7,20 +7,22 @@
         </div>
 
         <!-- テーブル -->
-        <el-table :data="trainList" v-loading.fullscreen.lock="loading" stripe style="width: 100%">
-            <el-table-column prop="name" label="路線" width="300"></el-table-column>
-            <el-table-column fixed="right" align="center" label="ウォッチ">
-                <template slot-scope="scope">
-                    <el-button v-if="!scope.row.watching" @click="addWatch(scope.row)" type="text" size="small">追加</el-button>
-                    <el-button v-else @click="deleteWatch(scope.row)" type="text" size="small">削除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+        <div v-if="!loading">
+            <el-table :data="trainList" v-loading.fullscreen.lock="loading" stripe style="width: 100%">
+                <el-table-column prop="name" label="路線" width="300"></el-table-column>
+                <el-table-column fixed="right" align="center" label="ウォッチ">
+                    <template slot-scope="scope">
+                        <el-button v-if="!scope.row.watching" @click="addWatch(scope.row)" type="text" size="small">追加</el-button>
+                        <el-button v-else @click="deleteWatch(scope.row)" type="text" size="small">削除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
 
-        <!-- ページネーション -->
-        <div class="block">
-            <el-pagination background layout="prev, pager, next" :total="total" :current-page.sync="currentPage" :page-size="pageSize">
-            </el-pagination>
+            <!-- ページネーション -->
+            <div class="block">
+                <el-pagination background layout="prev, pager, next" :total="total" :current-page.sync="currentPage" :page-size="pageSize">
+                </el-pagination>
+            </div>
         </div>
     </template>
 </div>

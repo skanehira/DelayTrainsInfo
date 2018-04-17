@@ -3,9 +3,10 @@
     <div style="display: flex">
         <!-- ロゴ -->
         <img @click="toPage('top')" src="../../img/logo.png" width="90%" height="80%" style="flex: 1">
+
         <!-- ドッロップダウンメニュー -->
-        <el-dropdown @command="toPage" trigger="click" hide-on-click>
-            <img src="../../img/nav_icon.png" width="100%" height="80%">
+        <el-dropdown @command="toPage" trigger="click" hide-on-click style="font-size: 6.5vw" @visible-change="changeIcon">
+            <i :class="icon"></i>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="(value, key) in menus" :key="menus.key" :command="key">{{value}}</el-dropdown-item>
             </el-dropdown-menu>

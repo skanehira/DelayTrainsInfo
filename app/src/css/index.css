@@ -64,5 +64,5 @@ span {
 
 /* メッセージの表示位置 */
 .el-message--success {
-    top:128px;
+    min-width: 274px;
 }
