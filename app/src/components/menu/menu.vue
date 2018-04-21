@@ -4,16 +4,15 @@
 export default {
   data() {
     return {
-      menus: {
-        trainList: "路線一覧",
-        watchList: "ウォッチリスト",
-        delayInfo: "遅延情報検索",
-        about: "サイト作者について"
-      }
+      menus: [
+        { path: "trainList", text: "路線検索", icon: "el-icon-search" },
+        { path: "watchList", text: "登録路線リスト", icon: "el-icon-tickets" },
+        { path: "realTimeInfo", text: "リアルタイム", icon: "el-icon-time" }
+      ]
     };
   },
   methods: {
-    toPage(pageName) {
+    changePage(pageName) {
       this.$router.push("/" + pageName);
     }
   }

@@ -1,5 +1,18 @@
-<div id="menu">
-	<div v-for="(value, key) in menus" :key="menus.key" style="text-align: center;">
-		<el-button style="color:black" type="text" @click="toPage(key)">{{value}}</el-button>
+<div id="menu" style="text-align: center">
+	<div style="padding-top: 10px">
+		<el-row>
+			<el-col :span="8" v-for="menu in menus" :key="menus.key">
+				<div>
+					<el-button type="primary" @click="changePage(menu.path)" circle :icon="menu.icon" 
+						style="background-color:  rgba(255, 255, 255, 0.4);
+								border-color:  rgba(255, 255, 255, 0.4);
+								font-size: 6.5vw;">
+					</el-button>
+				</div>
+				<div style="padding-top: 10px">
+					{{menu.text}}
+				</div>
+			</el-col>
+		</el-row>
 	</div>
 </div>

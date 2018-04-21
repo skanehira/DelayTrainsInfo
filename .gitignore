@@ -5,3 +5,6 @@
 .settings
 node_modules/
 .vscode/
+logs/app.log
+src/config.php
+.DS_Store

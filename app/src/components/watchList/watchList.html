@@ -1,13 +1,22 @@
 <div id="watchList">
     <template>
-        <!-- テーブル -->
-        <el-table :data="watching" stripe style="width: 100%; font-size: 15px;">
-            <el-table-column prop="name" label="路線"></el-table-column>
-            <el-table-column fixed="right" label="ステータス" align="center">
-                <template slot-scope="scope">
-                    <el-alert :title="status" type="success" center show-icon :closable="false"></el-alert>
-                </template>
-            </el-table-column>
-        </el-table>
+        <div v-if="!loading">
+            <el-table :data="watching" stripe style="width: 100%; font-size: 15px;">
+                <el-table-column prop="name" label="路線" align="center"></el-table-column>
+                <el-table-column fixed="right" label="ステータス" width="150px" align="center">
+                    <template slot-scope="scope">
+                        <el-alert :title="scope.row.status" :type="scope.row.type" center :closable="false"></el-alert>
+                    </template>
+                </el-table-column>
+                <el-table-column fixed="right" align="center" width="100px" label="登録状況">
+                    <template slot-scope="scope">
+                        <el-button @click="deleteWatch(scope.row)" type="text" size="small">削除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <div v-if="noData">
+            <h3 style="text-align: center">登録している路線がありません。</h3>
+        </div>
     </template>
 </div>

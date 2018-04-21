@@ -5,7 +5,7 @@
         <img @click="toPage('top')" src="../../img/logo.png" width="90%" height="80%" style="flex: 1">
 
         <!-- ドッロップダウンメニュー -->
-        <el-dropdown @command="toPage" trigger="click" hide-on-click style="font-size: 6.5vw" @visible-change="changeIcon">
+        <el-dropdown @command="toPage" trigger="click" hide-on-click style="font-size: 6.5vw" @visible-change="changeIcon" v-if="this.$route.path !== '/welcom'">
             <i :class="icon"></i>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item v-for="(value, key) in menus" :key="menus.key" :command="key">{{value}}</el-dropdown-item>

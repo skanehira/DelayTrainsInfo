@@ -3,10 +3,6 @@
 	font-family: PixelMplus10-Regular;
 	src: url('../font/PixelMplus10-Regular.ttf') format("truetype");
 }
-@font-face {
-    font-family: PixelMplus10-Bold;
-    src: url('../font/PixelMplus10-Bold.ttf') format("truetype");
-}
 
 /* 画面全体適用 */
 body {

@@ -8,10 +8,10 @@ export default {
     return {
       menus: {
         top: "トップ",
-        trainList: "路線一覧",
-        watchList: "ウォッチリスト",
-        delayInfo: "遅延情報検索",
-        about: "サイト作者について"
+        help: "使いかた",
+        trainList: "路線検索",
+        watchList: "登録路線リスト",
+        realTimeInfo: "リアルタイム",
       },
       icon : OPEN_ICON,
     };
@@ -20,8 +20,8 @@ export default {
     toPage(pageName) {
       this.$router.push("/" + pageName);
     },
-    changeIcon(appears) {
-      this.icon = appears ? CLOSE_ICON : OPEN_ICON;
+    changeIcon(closed) {
+      this.icon = closed ? CLOSE_ICON : OPEN_ICON;
     }
   }
 };
