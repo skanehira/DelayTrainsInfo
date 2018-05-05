@@ -5,5 +5,14 @@
             <el-input v-model="form.search" style="flex: 1"></el-input>
             <el-button style="margin-left: 10px" type="primary" @click="search()">検索</el-button>
         </div>
+
+        <div class="scroll-container" @scroll="infiniteScroll">
+            <el-card shadow="always" v-for="tweet of tweets" :key="tweet.id" style="margin-bottom: 10px">
+                <div slot="header">
+                    {{tweet.created_at}}
+                </div>
+                {{tweet.text}}
+            </el-card>
+        </div>
     </template>
 </div>

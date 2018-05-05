@@ -4,11 +4,17 @@
 	src: url('../font/PixelMplus10-Regular.ttf') format("truetype");
 }
 
-/* 画面全体適用 */
+/* 全体適用 */
 body {
     font-family: PixelMplus10-Regular;
     font-size: 15px !important;
-    background: url('../img/background.gif');
+
+    /* 背景画像 画面サイズに合わせる */
+    background: url('../img/background.gif') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    overflow: hidden;
 }
 
 /* el-button text 使用するとフォントが効かないので直接指定 */
@@ -20,22 +26,6 @@ span {
 /* el-inputでドットフォントを使用　*/
 .el-input__inner {
     font-family: PixelMplus10-Regular;
-}
-
-/* アニメーション */
-@keyframes moveimg {
-    0% { left: -200px;}
-    /* 20% {left: 0px;}
-    40% {left: 100px} */
-    /* 50% {left: 200px} */
-    100% { left: 500px }
-}
-
-#sample1{
-    width: 50%;
-    height: 50%;
-    animation: moveimg 20s infinite ease;
-    position: relative;
 }
 
 /* 路線一覧で遅延がある場合は赤くする */
@@ -62,3 +52,24 @@ span {
 .el-message--success {
     min-width: 274px;
 }
+
+/* cardのヘッダpaddingサイズ変更 */
+.el-card__header {
+    padding: 5px 0px 5px 20px
+}
+
+/* スクロールコンテナ */
+.scroll-container {
+    height: 70vh;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* 
+  テーブルのスクロールをする時に必要
+  scrollTopの値が想定外になってしまうため
+  参考:https://github.com/ElemeFE/element/issues/8035
+*/
+/* .el-table {
+    position: inherit!important;
+} */

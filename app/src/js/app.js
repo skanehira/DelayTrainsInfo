@@ -7,6 +7,7 @@ import routes from './routes';
 import VueLocalStorage from 'vue-localstorage';
 import 'element-ui/lib/theme-chalk/index.css';
 import '../css/index.css';
+
 // コンポーネント
 import menu from '../components/menu/menu.vue';
 import header from '../components/header/header.vue'

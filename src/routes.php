@@ -98,35 +98,58 @@ $app->get("/getWatchTrainInfo", function (Request $request, Response $response, 
 });
 
 // 遅延情報検索
-$app->get("/getDelayInfo", function (Request $request, Response $response, array $args) {
+$app->get("/getRealTimeInfo", function (Request $request, Response $response, array $args) {
     // Twitter接続
     try {
         $Twitter = new TwitterOAuth(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_SECRET);
     } catch (Exception $e) {
-        $this->logger->info($e);
-        exit;
+        // 結果を返却
+        return $response->withStatus(500);
     }
 
-    // 路線名を取得
-    foreach ($request->getQueryParams() as $query) {
-        $tweets = $Twitter->get("search/tweets", ["q" => "#".$query." 遅延", "count" => 100]);
+    // responseデータ作成
+    $responseData = [];
 
-        // 遅延ツイートが5件以上の場合はステータスを遅延に設定
-        if(count($tweets->statuses) > 5) {
+    // パラメータ不正は400で返却する
+    $query = $request->getParam('query');
+    if (!$query) {
+        return $response->withStatus(400)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode([message => "invalid query parameter!"]));
+    }
 
+    // ツイート検索
+    $tweets = $Twitter->get("search/tweets", ["q" => $query."遅延", "count" => 100]);
+
+    // ツイート情報整形
+    $statuses = (array)$tweets->statuses;
+    foreach($statuses as $tweet) {
+        
+        $timestamp = strtotime($tweet->created_at)+32400; //9時間足す
+        $jp_time = date('Y-m-d H:i:s', $timestamp);
+        $today = date("Ymd", time()+32400);
+
+        // 日付が今日のツイートをresponseに追加
+        if ($today == date('Ymd', $timestamp)) {
+            $data = [
+                id => $tweet->id,
+                created_at => $jp_time,
+                text => $tweet->text,
+                user_name => $tweet->user->name
+            ];
+            array_push($responseData, $data);
         }
-        // ツイート詳細
-        // foreach($tweets->statuses as $tweet) {
-        //     $this->logger->info(var_dump($tweet->text));
-        //     $t = new DateTime($tweet->created_at);
-        //     $t->setTimeZone(new DateTimeZone('Asia/Tokyo'));
-            
-        //     $this->logger->info(var_dump($t->format('Y-m-d H:i:s')));
-        // }
     }
 
+    // 見つからなかった場合は空配列を返却
+    if (!$responseData) {
+        return $response->withStatus(404)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode([message => "Not found data"]));
+    }
 
     // 結果を返却
     return $response->withStatus(200)
-        ->withHeader('Content-Type', 'application/json');
+        ->withHeader('Content-Type', 'application/json')
+        ->write(json_encode($responseData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 });
