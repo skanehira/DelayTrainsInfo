@@ -1,10 +1,9 @@
-/vendor/
-!/logs/README.md
+vendor/
 .buildpath
 .project
 .settings
 node_modules/
 .vscode/
 logs/app.log
-src/config.php
+config.php
 .DS_Store

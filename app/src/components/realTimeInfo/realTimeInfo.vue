@@ -15,14 +15,17 @@ export default {
   },
   methods: {
     async search() {
+      if (this.form.search === "") {
+        alert("路線名を入力して下さい");
+        return false;
+      };
+
       let loading = this.$loading({
           lock: true,
           text: '検索中…',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)'
       });
-
-      if (this.form.search === "") return false;
 
       await this.$axios
         .get("/getRealTimeInfo", {

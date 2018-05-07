@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [QSA,L]
+   
+  #Gzip
+  Addtype font/opentype .otf
+  Addtype font/eot .eot
+  Addtype font/truetype .ttf
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript application/javascript text/text font/opentype font/truetype font/eot
+  #End Gzip
+
+
+</IfModule>
+
+<Files ~ "\.(csv|js)$">
+  # キャッシュ無効化
+  FileEtag None
+  RequestHeader unset If-Modified-Since
+  Header set Cache-Control no-store
+</Files>

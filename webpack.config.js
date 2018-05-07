@@ -2,7 +2,7 @@ module.exports = {
 	entry: './app/src/js/app.js',
 	output: {
 		path: __dirname,
-		filename: './public/js/bundle.js'
+		filename: './js/bundle.js'
 	},
 	resolve: {
 		alias: {
@@ -30,5 +30,4 @@ module.exports = {
 			},
 		]
 	},
-	mode : "development"
 };

@@ -11,7 +11,7 @@ export default {
         help: "使いかた",
         trainList: "路線検索",
         watchList: "登録路線リスト",
-        realTimeInfo: "リアルタイム",
+        realTimeInfo: "つぶやき検索",
       },
       icon : OPEN_ICON,
     };

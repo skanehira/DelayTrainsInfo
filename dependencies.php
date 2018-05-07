@@ -1,5 +1,6 @@
 <?php
-// DIC configuration
+use Abraham\TwitterOAuth\TwitterOAuth;
+require "config.php";
 
 $container = $app->getContainer();
 
@@ -16,4 +17,16 @@ $container['logger'] = function ($c) {
     $logger->pushProcessor(new Monolog\Processor\UidProcessor());
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
+};
+
+// TwitterOAuth
+$container['TwitterOAuth'] = function ($c) {
+        // Twitter接続
+        try {
+            $Twitter = new TwitterOAuth(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_SECRET);
+            return $Twitter;
+        } catch (Exception $e) {
+            // 結果を返却
+            return $e;
+        }
 };

@@ -18,6 +18,7 @@ Vue.use(VueLocalStorage);
 
 // 全コンポーネントでaxiosを使用できる様にprototypeに登録
 Vue.prototype.$axios = axios.create({
+    baseURL: '/DelayTrainsInfo/',
     headers: {
         'ContentType': 'application/json',
         'X-Requested-With': 'XMLHttpRequest'

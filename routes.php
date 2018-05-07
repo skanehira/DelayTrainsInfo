@@ -3,31 +3,35 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-require "../vendor/autoload.php";
-use Abraham\TwitterOAuth\TwitterOAuth;
-require "config.php";
+require "vendor/autoload.php";
 
 // Routes
 $app->get('/', function (Request $request, Response $response, array $args) {
-    // Sample log message
-    // $this->logger->info("Slim-Skeleton '/' route");
-
     // Render index view
     return $this->renderer->render($response, 'index.html', $args);
 });
 
 /**
- * 駅データ.jp(http://www.ekidata.jp/)から取得した
  * csvファイルから線路データを読み取り返却する
+ * TODO DBに変更
  */
 $app->get('/getTrainList', function (Request $request, Response $response, array $args) {
 
-    $filepath = '../data/train.csv';
+    $filepath = './data/train.csv';
     $stationDataFile = new SplFileObject($filepath);
     $stationDataFile->setFlags(SplFileObject::READ_CSV);
 
     $query = $request->getQueryParam('query');
     $offset = $request->getQueryParam('offset');
+    $limit = $request->getQueryParam('limit');
+
+    // パラメータチェック
+    if (!is_numeric($offset) || !is_numeric($limit)) {
+        return $response->withStatus(400)
+            ->withHeader('Content-Type', 'application/json')
+            ->write(json_encode([message => "パラメータが不正です"]));
+    }
+
     $limit = $offset + $request->getQueryParam('limit');
 
     $data = array();
@@ -73,10 +77,18 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
 // ウォッチリストの路線情報を取得
 $app->get("/getWatchTrainInfo", function (Request $request, Response $response, array $args) {
 
+    // パラメータチェック
+    $queryParams = $request->getQueryParams();
+    if (count($queryParams) == 0) {
+        return $response->withStatus(400)
+        ->withHeader('Content-Type', 'application/json')
+        ->write(json_encode([message => "パラメータが不正です"]));
+    }
+
     $delayInfo = json_decode(file_get_contents("https://rti-giken.jp/fhc/api/train_tetsudo/delay.json"));
 
     $responseData = [];
-    foreach ($request->getQueryParams() as $query) {
+    foreach ($queryParams as $query) {
         $isDelay = false;
         // 遅延データチェック
         foreach($delayInfo as $info) {
@@ -101,21 +113,21 @@ $app->get("/getWatchTrainInfo", function (Request $request, Response $response, 
 $app->get("/getRealTimeInfo", function (Request $request, Response $response, array $args) {
     // Twitter接続
     try {
-        $Twitter = new TwitterOAuth(API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_SECRET);
+        $Twitter = $this->TwitterOAuth;
     } catch (Exception $e) {
-        // 結果を返却
+        $this->logger->info($e);
         return $response->withStatus(500);
     }
 
     // responseデータ作成
     $responseData = [];
 
-    // パラメータ不正は400で返却する
+    // パラメータ不正は400エラー
     $query = $request->getParam('query');
-    if (!$query) {
+    if ($query == "") {
         return $response->withStatus(400)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([message => "invalid query parameter!"]));
+            ->write(json_encode([message => "パラメータが不正です"]));
     }
 
     // ツイート検索
@@ -141,11 +153,11 @@ $app->get("/getRealTimeInfo", function (Request $request, Response $response, ar
         }
     }
 
-    // 見つからなかった場合は空配列を返却
+    // 見つからなかった場合は404エラー
     if (!$responseData) {
         return $response->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([message => "Not found data"]));
+            ->write(json_encode([message => "つぶやきがありません"]));
     }
 
     // 結果を返却

@@ -7,7 +7,7 @@ export default {
       menus: [
         { path: "trainList", text: "路線検索", icon: "el-icon-search" },
         { path: "watchList", text: "登録路線リスト", icon: "el-icon-tickets" },
-        { path: "realTimeInfo", text: "リアルタイム", icon: "el-icon-time" }
+        { path: "realTimeInfo", text: "つぶやき検索", icon: "el-icon-time" }
       ]
     };
   },
