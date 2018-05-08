@@ -21,12 +21,7 @@ body::before {
 body {
     font-family: PixelMplus10-Regular;
     font-size: 15px !important;
-
-    /* 背景画像 画面サイズに合わせる */
-    /* background: url('../img/background.gif') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed; */
-
+    /* position:fixed; */
     overflow: hidden;
 }
 
@@ -86,3 +81,13 @@ span {
 /* .el-table {
     position: inherit!important;
 } */
+
+/* ページネーションのサイズ変更 */
+.el-pagination.is-background.el-pagination--small .btn-next, .el-pagination.is-background.el-pagination--small .btn-prev, .el-pagination.is-background.el-pagination--small .el-pager li {
+    min-width: 26px;
+}
+
+.el-pagination--small .btn-next, .el-pagination--small .btn-prev, .el-pagination--small .el-pager li, .el-pagination--small .el-pager li:last-child {
+    line-height: 26px;
+    height: 26px;
+}

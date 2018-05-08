@@ -19,7 +19,9 @@
             </el-table>
 
             <!-- ページネーション -->
-            <el-pagination background layout="prev, pager, next" :total="total" :current-page.sync="currentPage" :page-size="pageSize"></el-pagination>
+            <div style="text-align: center;">
+                <el-pagination background small layout="prev, pager, next" :total="total" :current-page.sync="currentPage" :page-size="pageSize"></el-pagination>
+            </div>
         </div>
     </template>
 </div>
