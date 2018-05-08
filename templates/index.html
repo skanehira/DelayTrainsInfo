@@ -13,7 +13,7 @@
     <headers></headers>
     <router-view></router-view>
   </main>
-  <script src="./js/bundle.js"></script>
+  <script type="text/javascript" src="./js/bundle.js?<?php echo date('YmdHis', filemtime('js/bundle.js')) ?>"></script>
 </body>
 
 </html>
