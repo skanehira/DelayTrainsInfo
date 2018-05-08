@@ -4,15 +4,28 @@
 	src: url('../font/PixelMplus10-Regular.ttf') format("truetype");
 }
 
+body::before {
+    content:"";
+    display:block;
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    width:100%;
+    height:100vh;
+    background:url('../img/background.gif') center/cover no-repeat; /*fixedをトル！*/
+    -webkit-background-size:cover;/*Android4*/
+}
+
 /* 全体適用 */
 body {
     font-family: PixelMplus10-Regular;
     font-size: 15px !important;
 
     /* 背景画像 画面サイズに合わせる */
-    background: url('../img/background.gif') no-repeat center center;
+    /* background: url('../img/background.gif') no-repeat center center;
     background-size: cover;
-    background-attachment: fixed;
+    background-attachment: fixed; */
 
     overflow: hidden;
 }
