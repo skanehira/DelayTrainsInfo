@@ -1,6 +1,6 @@
 <div id="watchList">
     <template>
-        <div v-if="!loading">
+        <div v-if="isDisplay">
             <el-table :data="watching" stripe style="width: 100%; font-size: 15px;">
                 <el-table-column prop="name" label="路線" align="center"></el-table-column>
                 <el-table-column fixed="right" label="ステータス" width="140px" align="center">
@@ -15,7 +15,7 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div v-if="noData">
+        <div v-if="isNoData">
             <h3 style="text-align: center">登録している路線がありません。</h3>
         </div>
     </template>

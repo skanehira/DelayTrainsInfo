@@ -7,7 +7,7 @@
         </div>
 
         <!-- テーブル -->
-        <div v-if="!loading">
+        <div v-if="isDisplay">
             <el-table :data="trainList" stripe style="width: 100%">
                 <el-table-column prop="name" label="路線" width="250"></el-table-column>
                 <el-table-column fixed="right" align="center" label="登録状況">

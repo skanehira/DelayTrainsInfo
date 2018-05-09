@@ -5,7 +5,7 @@ const DEFAULTPAGESIZE = 5;
 export default {
   data() {
     return {
-      loading: true,
+      isDisplay: false,
       trainList: [],
       form: {
         saerch: ""
@@ -29,6 +29,13 @@ export default {
       this.getList(this.form.search);
     },
     async getList(query = "", currentPage = 1, pageSize = DEFAULTPAGESIZE) {
+      let loading = this.$loading({
+        lock: true,
+        text: "検索中…",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+
       let offset = (currentPage - 1) * pageSize;
       let limit = pageSize;
 
@@ -42,6 +49,7 @@ export default {
         })
         .then(response => {
           let watching = this.getWatches();
+
           response.data.forEach(function(data, index) {
             // ウォッチリストがある場合
             if (watching.length) {
@@ -54,9 +62,18 @@ export default {
           });
 
           this.trainList = response.data;
-          this.loading = false;
+          this.isDisplay = true;
           this.total = parseInt(response.headers["totalcount"], 10);
+        })
+        .catch(error => {
+          if (error.response !== undefined) {
+            alert(error.response.data.message);
+          } else {
+            alert(error.message);
+          }
         });
+
+      loading.close();
     },
     // ウォッチリストに追加
     addWatch(target) {

@@ -4,8 +4,8 @@
 export default {
   data() {
     return {
-      noData: false,
-      loading: true,
+      isNoData: false,
+      isDisplay: false,
       watching: []
     };
   },
@@ -17,12 +17,18 @@ export default {
     async getWatches() {
       let watchList = this.getWatchesFromStorage();
 
+      // 登録路線がない場合
       if (watchList === null || watchList.length === 0) {
-        // 一覧を非表示にする
-        this.loading = true;
         this.noData = true;
         return;
       }
+
+      let loading = this.$loading({
+        lock: true,
+        text: "検索中…",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
 
       let paramater = {};
 
@@ -36,8 +42,17 @@ export default {
         })
         .then(response => {
           this.watching = response.data;
-          this.loading = false;
+          this.isDisplay = true;
+        })
+        .catch(error => {
+          if (error.response !== undefined) {
+            alert(error.response.data.message);
+          } else {
+            alert(error.message);
+          }
         });
+
+      loading.close();
     },
     // ウォッチリストから取得
     getWatchesFromStorage() {
@@ -57,7 +72,7 @@ export default {
         });
 
         this.setWatches(watching);
-        
+
         // リスト更新
         this.getWatches();
 
