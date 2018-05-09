@@ -10,7 +10,7 @@ export default {
         top: "トップ",
         help: "使いかた",
         trainList: "路線検索",
-        watchList: "登録路線リスト",
+        watchList: "登録路線状況",
         realTimeInfo: "つぶやき検索",
       },
       icon : OPEN_ICON,
