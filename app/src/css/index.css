@@ -91,3 +91,13 @@ span {
     line-height: 26px;
     height: 26px;
 }
+
+/* ヘルプの各タイトル・内容の位置変更 */
+.el-collapse-item__header {
+    padding-left: 8px;
+}
+.el-collapse-item__content {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top:25px;
+}

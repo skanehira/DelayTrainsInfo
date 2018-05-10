@@ -1,3 +1,32 @@
 <div>
-    todo edit help.
+    <el-collapse accordion>
+        <!-- <el-collapse-item title="Delay Train's Info" name="aboutThisSite">
+            </el-collapse-item> -->
+        <el-collapse-item title="路線検索について" name="aboutTrainList">
+            <div>
+                遅延情報をウォッチしたい路線を検索して登録することができます。
+                <br> 登録された路線は、登録路線状況画面で運転情報を確認できます。
+                <br> 全国の路線を網羅していないため、あなたの利用線路がない場合は
+                <br> 「つぶやき検索」をご利用下さい。
+            </div>
+        </el-collapse-item>
+        <el-collapse-item title="登録路線状況について" name="aboutWatchList">
+            <div>
+                路線検索画面で登録した路線の運転情報を知ることができます。
+                <br> 遅延時は赤く「現在遅延中」と表示されます。
+                <br> 公式より遅延情報を表示するのが遅いため、
+                <br>
+                <br>リアルタイム性に欠けますのでご了承下さい。
+            </div>
+        </el-collapse-item>
+        <el-collapse-item title="つぶやき検索について" name="aboutRealTime">
+            <div>
+                Twitterから路線名を検索して、ツイートを取得できます。
+                <br> 路線検索で使用路線が見つからなかった場合にご利用下さい。
+                <br> リアルタイム性はありますが、
+                <br> 制度が低いためご自身でツイート内容を見て
+                <br> 判断することをオススメいたします。
+            </div>
+        </el-collapse-item>
+    </el-collapse>
 </div>
