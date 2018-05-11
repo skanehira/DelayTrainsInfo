@@ -19,7 +19,8 @@ export default {
 
       // 登録路線がない場合
       if (watchList === null || watchList.length === 0) {
-        this.noData = true;
+        this.isDisplay = false;
+        this.isNoData = true;
         return;
       }
 
