@@ -70,7 +70,7 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
     return $response->withStatus(200)
         ->withHeader('Content-Type', 'application/json')
         ->withHeader('totalCount', $totalCount)
-        ->write(json_encode($responseData));
+        ->write(json_encode($responseData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 });
 
 // ウォッチリストの路線情報を取得
@@ -105,7 +105,7 @@ $app->get('/getWatchTrainInfo', function (Request $request, Response $response, 
 
     return $response->withStatus(200)
         ->withHeader('Content-Type', 'application/json')
-        ->write(json_encode($responseData));
+        ->write(json_encode($responseData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 });
 
 // 遅延情報検索
