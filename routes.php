@@ -3,7 +3,7 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
-require "vendor/autoload.php";
+require 'vendor/autoload.php';
 
 // Routes
 $app->get('/', function (Request $request, Response $response, array $args) {
@@ -13,7 +13,6 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 
 /**
  * csvファイルから線路データを読み取り返却する
- * TODO DBに変更
  */
 $app->get('/getTrainList', function (Request $request, Response $response, array $args) {
 
@@ -29,7 +28,7 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
     if (!is_numeric($offset) || !is_numeric($limit)) {
         return $response->withStatus(400)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([message => "パラメータが不正です"]));
+            ->write(json_encode(['message' => 'パラメータが不正です']));
     }
 
     $limit = $offset + $request->getQueryParam('limit');
@@ -39,12 +38,12 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
     $totalCount = 0;
 
     // 全件検索
-    if ($query != "") {
+    if ($query != '') {
         foreach($stationDataFile as $line) {
             $trainName = $line[2];
             if (strpos($trainName, $query) !== false && !is_null($trainName)) {
                 $totalCount ++;
-                $data[] = [id => $line[0], name => $trainName, watching => false];
+                $data[] = ['id' => $line[0], 'name' => $trainName, 'watching' => false];
             }
         }
     } else {
@@ -52,7 +51,7 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
             $trainName = $line[2];
             if (!is_null($trainName)) {
                 $totalCount ++;
-                $data[] = [id => $line[0], name => $trainName , watching => false];
+                $data[] = ['id' => $line[0], 'name' => $trainName , 'watching' => false];
             }
         }
     }
@@ -64,7 +63,7 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
         }
 
         if ($index >= $offset) {
-            $responseData[] = [id => $line["id"], name => $line["name"] , watching => false];
+            $responseData[] = ['id' => $line['id'], 'name' => $line['name'] , 'watching' => false];
         }
     }
 
@@ -75,17 +74,17 @@ $app->get('/getTrainList', function (Request $request, Response $response, array
 });
 
 // ウォッチリストの路線情報を取得
-$app->get("/getWatchTrainInfo", function (Request $request, Response $response, array $args) {
+$app->get('/getWatchTrainInfo', function (Request $request, Response $response, array $args) {
 
     // パラメータチェック
     $queryParams = $request->getQueryParams();
     if (count($queryParams) == 0) {
         return $response->withStatus(400)
         ->withHeader('Content-Type', 'application/json')
-        ->write(json_encode([message => "パラメータが不正です"]));
+        ->write(json_encode(['message' => 'パラメータが不正です']));
     }
 
-    $delayInfo = json_decode(file_get_contents("https://rti-giken.jp/fhc/api/train_tetsudo/delay.json"));
+    $delayInfo = json_decode(file_get_contents('https://rti-giken.jp/fhc/api/train_tetsudo/delay.json'));
 
     $responseData = [];
     foreach ($queryParams as $query) {
@@ -98,9 +97,9 @@ $app->get("/getWatchTrainInfo", function (Request $request, Response $response, 
         }
 
         if ($isDelay) {
-            array_push($responseData, [name => $query, type => 'error', status => "現在遅延中"]);
+            array_push($responseData, ['name' => $query, 'type' => 'error', 'status' => '現在遅延中']);
         } else {
-            array_push($responseData, [name => $query, type => 'success', status => "平常運転中"]);
+            array_push($responseData, ['name' => $query, 'type' => 'success', 'status' => '平常運転中']);
         }
     }
 
@@ -110,7 +109,7 @@ $app->get("/getWatchTrainInfo", function (Request $request, Response $response, 
 });
 
 // 遅延情報検索
-$app->get("/getRealTimeInfo", function (Request $request, Response $response, array $args) {
+$app->get('/getRealTimeInfo', function (Request $request, Response $response, array $args) {
     // Twitter接続
     try {
         $Twitter = $this->TwitterOAuth;
@@ -124,14 +123,14 @@ $app->get("/getRealTimeInfo", function (Request $request, Response $response, ar
 
     // パラメータ不正は400エラー
     $query = $request->getParam('query');
-    if ($query == "") {
+    if ($query == '') {
         return $response->withStatus(400)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([message => "パラメータが不正です"]));
+            ->write(json_encode(['message' => 'パラメータが不正です']));
     }
 
     // ツイート検索
-    $tweets = $Twitter->get("search/tweets", ["q" => $query."遅延", "count" => 100]);
+    $tweets = $Twitter->get('search/tweets', ['q' => $query.'遅延', 'count' => 100]);
 
     // ツイート情報整形
     $statuses = (array)$tweets->statuses;
@@ -139,15 +138,15 @@ $app->get("/getRealTimeInfo", function (Request $request, Response $response, ar
         
         $timestamp = strtotime($tweet->created_at)+32400; //9時間足す
         $jp_time = date('Y-m-d H:i:s', $timestamp);
-        $today = date("Ymd", time()+32400);
+        $today = date('Ymd', time()+32400);
 
         // 日付が今日のツイートをresponseに追加
         if ($today == date('Ymd', $timestamp)) {
             $data = [
-                id => $tweet->id,
-                created_at => $jp_time,
-                text => $tweet->text,
-                user_name => $tweet->user->name
+                'id' => $tweet->id,
+                'created_at' => $jp_time,
+                'text' => $tweet->text,
+                'user_name' => $tweet->user->name
             ];
             array_push($responseData, $data);
         }
@@ -157,7 +156,7 @@ $app->get("/getRealTimeInfo", function (Request $request, Response $response, ar
     if (!$responseData) {
         return $response->withStatus(404)
             ->withHeader('Content-Type', 'application/json')
-            ->write(json_encode([message => "つぶやきがありません"]));
+            ->write(json_encode(['message' => 'つぶやきがありません']));
     }
 
     // 結果を返却
