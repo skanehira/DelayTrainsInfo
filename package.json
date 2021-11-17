@@ -14,7 +14,7 @@
   "author": "sknaehira",
   "license": "ISC",
   "devDependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.2",
     "css-loader": "^0.28.11",
     "element-ui": "^2.3.3",
     "file-loader": "^1.1.11",
